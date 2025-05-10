@@ -27,6 +27,11 @@ jobs:
 
       - name: Initialize database with default admin
         run: python create_initial_superuser.py
+
+      - name: Workflow debugging
+        run: |
+          ls -ha
+          env
         
       - name: Test
         working-directory: app
