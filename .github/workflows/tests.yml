@@ -1,0 +1,22 @@
+# Test with pytest
+
+name: Pytest tests
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+  
+jobs:
+  build:
+    name: Tests with pytest
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Test
+        working-directory: app
+        run: pytest
