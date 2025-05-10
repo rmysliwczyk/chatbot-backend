@@ -24,6 +24,9 @@ jobs:
 
       - name: Prepare dependencies
         run: pip install -r requirements.txt
+
+      - name: Initialize database with default admin
+        run: python3 create_initial_superuser.py
         
       - name: Test
         working-directory: app
