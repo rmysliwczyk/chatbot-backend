@@ -1,0 +1,33 @@
+# Test with pytest
+
+name: Pytest tests
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+env:
+  SECRET_KEY: ${{ secrets.SECRET_KEY }}
+  DEFAULT_ADMIN_LOGIN: ${{ secrets.DEFAULT_ADMIN_LOGIN }}
+  DEFAULT_ADMIN_PASSWORD: ${{ secrets.DEFAULT_ADMIN_PASSWORD }}
+  
+jobs:
+  build:
+    name: Tests with pytest
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare dependencies
+        run: pip install -r requirements.txt
+
+      - name: Initialize database with default admin
+        run: python3 create_initial_superuser.py
+        
+      - name: Test
+        working-directory: app
+        run: pytest
