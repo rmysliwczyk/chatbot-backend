@@ -7,6 +7,11 @@ on:
     branches: [ "main" ]
 
   workflow_dispatch:
+
+env:
+  SECRET_KEY: ${{ secrets.SECRET_KEY }}
+  DEFAULT_ADMIN_LOGIN: ${{ secrets.DEFAULT_ADMIN_LOGIN }}
+  DEFAULT_ADMIN_PASSWORD: ${{ secrets.DEFAULT_ADMIN_PASSWORD }}
   
 jobs:
   build:
