@@ -1,8 +1,16 @@
+import os
+
+from dotenv import load_dotenv
 from sqlalchemy.exc import IntegrityError
 from sqlmodel import Session, create_engine
 
 from app.models import *
 from app.routers.users import create_user
+
+load_dotenv()
+
+DEFAULT_ADMIN_LOGIN = os.getenv("DEFAULT_ADMIN_LOGIN")
+DEFAULT_ADMIN_PASSWORD = os.getenv("DEFAULT_ADMIN_PASSWORD")
 
 SQLITE_FILE_NAME = "database.db"
 SQLITE_URL = f"sqlite:///{SQLITE_FILE_NAME}"
@@ -14,9 +22,10 @@ engine = create_engine(SQLITE_URL, connect_args=my_connect_args)
 SQLModel.metadata.create_all(engine)
 try:
     with Session(engine) as session:
-        create_user(UserCreate(username="admin", password="admin"), session)
+        create_user(
+            UserCreate(username=DEFAULT_ADMIN_LOGIN, password=DEFAULT_ADMIN_PASSWORD),
+            session,
+        )
 except IntegrityError as e:
-    print(
-        "Couldn't create default admin. It probably already exists. Please delete for production. Error details below:"
-    )
+    print("Couldn't create default admin. Error details below:")
     print(e)
