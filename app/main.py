@@ -1,9 +1,12 @@
 from contextlib import asynccontextmanager
 
+from dotenv import load_dotenv
 from fastapi import FastAPI
 
 from app.dependencies import create_db_and_tables
-from app.routers import auth, users
+from app.routers import auth, chat, users
+
+load_dotenv()
 
 
 @asynccontextmanager
@@ -18,3 +21,4 @@ app = FastAPI(lifespan=my_lifespan)
 
 app.include_router(auth.router)
 app.include_router(users.router)
+app.include_router(chat.router)

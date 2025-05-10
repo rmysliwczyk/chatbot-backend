@@ -1,8 +1,11 @@
-from datetime import datetime
-from sqlmodel import Column, Enum, Field, SQLModel
 import enum
+from datetime import datetime
+
+from pydantic import BaseModel
+from sqlmodel import Column, Enum, Field, SQLModel
 
 # User model
+
 
 class UserBase(SQLModel):
     username: str = Field(unique=True, max_length=64)
@@ -31,3 +34,4 @@ class UserCreate(UserBase):
 class UserUpdate(SQLModel):
     username: str | None = None
     is_active: bool | None = None
+    subscription_active: bool | None = None

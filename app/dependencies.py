@@ -1,3 +1,4 @@
+import os
 from datetime import datetime, timedelta, timezone
 from typing import Annotated
 
@@ -33,7 +34,7 @@ SessionDep = Annotated[Session, Depends(get_session)]
 ## Authentication
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/token")
 
-SECRET_KEY = "NotSecure"
+SECRET_KEY = os.getenv("SECRET_KEY")
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 ALGORITHM = "HS256"
 

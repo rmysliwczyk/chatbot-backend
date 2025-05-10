@@ -31,5 +31,7 @@ def login_for_access_token(
 
 
 @router.get("/me")
-def read_users_me(current_user: Annotated[User, Depends(get_current_active_user)]) -> UserPublic:
+def read_users_me(
+    current_user: Annotated[User, Depends(get_current_active_user)],
+) -> UserPublic:
     return UserPublic.model_validate(current_user)

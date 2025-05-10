@@ -3,7 +3,8 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlmodel import select
 
-from app.dependencies import SessionDep, get_current_active_user, get_password_hash
+from app.dependencies import (SessionDep, get_current_active_user,
+                              get_password_hash)
 from app.models import User, UserCreate, UserPublic, UserUpdate
 
 router = APIRouter(prefix="/users", tags=["users"])
@@ -34,7 +35,7 @@ def read_user(user_id: int, session: SessionDep) -> UserPublic:
 
 
 @router.post(
-    "/", 
+    "/",
     response_model=UserPublic,
     dependencies=[Depends(get_current_active_user)],
 )
