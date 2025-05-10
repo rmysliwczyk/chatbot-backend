@@ -29,5 +29,4 @@ jobs:
         run: python3 create_initial_superuser.py
         
       - name: Test
-        working-directory: app
         run: pytest
