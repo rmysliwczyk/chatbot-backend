@@ -1,0 +1,41 @@
+# Docker workflow
+
+name: Docker build
+
+on:
+  push:
+    branches: [ "main" ]
+    
+  workflow_dispatch:
+  
+env:
+  SECRET_KEY: ${{ secrets.SECRET_KEY }}
+  DEFAULT_ADMIN_LOGIN: ${{ secrets.DEFAULT_ADMIN_LOGIN }}
+  DEFAULT_ADMIN_PASSWORD: ${{ secrets.DEFAULT_ADMIN_PASSWORD }}
+
+jobs:
+  build:
+    name: Docker build and push
+    runs-on: ubuntu-latest
+    steps:
+    
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare dependencies
+        run: pip install -r requirements.txt
+
+      - name: Prepare initial db
+        run: python3 create_initial_superuser.py
+      
+      - name: Build Docker image
+        run: sudo docker build . -t ${{ secrets.DOCKER_USERNAME }}/chatbot-backend:latest
+
+      - name: Log in to Docker hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push Docker image
+        run: docker push rmysliwczyk/chatbot-backend:latest
