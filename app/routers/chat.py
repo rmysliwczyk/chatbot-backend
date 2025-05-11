@@ -25,7 +25,7 @@ def send_message(
     if user.subscription_active == False:
         raise HTTPException(401, "User doesn't have valid subscription for chat!")
 
-    create(model="pirate_model", from_="gemma3:1b", system="You're a pirate")
+    create(model="pirate_model", from_="gemma3:1b", system="You're santa clause")
 
     response = chat(model="pirate_model", messages=messages)
 
