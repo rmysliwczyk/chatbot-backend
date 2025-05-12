@@ -1,5 +1,5 @@
 #!/bin/bash
 ollama serve &
 sleep 5
-ollama pull "gemma3:1b" &
+ollama create custom_model -f ./Modelfile
 fastapi dev --host 0.0.0.0
