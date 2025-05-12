@@ -7,6 +7,7 @@ COPY "requirements.txt" .
 
 COPY app .
 
+COPY Modelfile .
 COPY docker_start_script.sh .
 COPY database.db .
 
