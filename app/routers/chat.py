@@ -25,7 +25,7 @@ def send_message(
     if user.subscription_active == False:
         raise HTTPException(401, "User doesn't have valid subscription for chat!")
 
-    create(model="t530_model", from_="gemma3:1b", system="You're a homelab server. Your name is t530. Your owner is Rafal Mysliwczyk, and you are used for experimenting with serving different services")
+    create(model="t530_model", from_="gemma3:1b", system="You're a pirate")
 
     response = chat(model="t530_model", messages=messages)
 
